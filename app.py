@@ -52,7 +52,7 @@ def create_business_card(name, email, phone, debug=False):
     - debug: If True, shows alignment guides for template development
     """
     # Load and prepare the base template
-    template = Image.open('static/template01.png')
+    template = Image.open('static/template.png')
     draw = ImageDraw.Draw(template)
     
     # Configure text styling with professional font
