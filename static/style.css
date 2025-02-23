@@ -1,58 +1,226 @@
+/* Root variables for consistent color scheme and easy theme modifications */
+:root {
+  --primary-color: #0071e3;    /* blue for primary actions */
+  --hover-color: #0077ED;      /* Slightly darker blue for hover states */
+  --text-color: #1d1d1f;       /* Dark gray for main text */
+  --secondary-text: #86868b;   /* Lighter gray for secondary text */
+  --background: #fbfbfd;       /* Light background color */
+  --card-background: #ffffff;  /* White for card backgrounds */
+}
+
+/* Reset default browser styles and improve text rendering */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Main body styles with style font hierarchy */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  background-color: var(--background);
+  color: var(--text-color);
+  line-height: 1.47059;
+  min-height: 100vh;
+}
+
+/* Main container with responsive width */
 .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
 }
 
+/* Page title styling */
+h1 {
+  font-size: 48px;
+  font-weight: 600;
+  letter-spacing: -0.003em;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* Two-column layout for form and preview */
+.content-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+/* Left side: Form section styling */
+.form-section {
+  padding: 30px;
+  background: var(--card-background);
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Right side: Preview section with sticky positioning */
+.preview-section {
+  position: sticky;
+  top: 40px;
+  padding: 30px;
+  background: var(--card-background);
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Form field group spacing */
 .form-group {
-    margin-bottom: 15px;
+  margin-bottom: 24px;
 }
 
+/* Form label styling */
 label {
-    display: block;
-    margin-bottom: 5px;
+  display: block;
+  font-size: 17px;
+  font-weight: 400;
+  margin-bottom: 8px;
+  color: var(--text-color);
 }
 
-input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+/* Input field styling with smooth focus transitions */
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 17px;
+  border: 1px solid #d2d2d7;
+  border-radius: 12px;
+  background-color: var(--card-background);
+  transition: all 0.3s ease;
 }
 
+/* Input focus state with highlight */
+input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+}
+
+/* Primary button styling */
 button {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 17px;
+  font-weight: 400;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 980px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
 }
 
+/* Button hover animation */
 button:hover {
-    background-color: #0056b3;
+  background-color: var(--hover-color);
+  transform: translateY(-1px);
 }
 
+/* Preview card result container */
 .result {
-    margin-top: 30px;
-    text-align: center;
+  text-align: center;
 }
 
+/* Preview section title */
+.result h2 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+/* Business card preview image */
 .result img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 32px;
+  border-radius: 18px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
-.download-btn, .print-btn {
-    margin: 10px;
-    display: inline-block;
-    text-decoration: none;
+/* Action buttons container */
+.button-group {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
 }
 
+/* Download and Print button shared styles */
+.download-btn,
+.print-btn {
+  flex: 1;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 980px;
+  font-size: 17px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+/* Download button specific styling */
+.download-btn {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Print button specific styling */
+.print-btn {
+  background-color: #e8e8ed;
+  color: var(--text-color);
+}
+
+/* Action button hover effects */
+.download-btn:hover,
+.print-btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.9;
+}
+
+/* Debug checkbox styling */
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* Print-specific layout adjustments */
 @media print {
-    form, button {
-        display: none;
-    }
+  .form-section,
+  .button-group {
+    display: none;
+  }
+  
+  .preview-section {
+    width: 100%;
+    box-shadow: none;
+  }
+  
+  .result img {
+    box-shadow: none;
+    margin: 0;
+  }
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 968px) {
+  .content-wrapper {
+    grid-template-columns: 1fr;  /* Stack columns on mobile */
+  }
+  
+  .preview-section {
+    position: static;  /* Remove sticky positioning on mobile */
+  }
+  
+  h1 {
+    font-size: 36px;  /* Smaller title on mobile */
+  }
+  
+  .button-group {
+    flex-direction: column;  /* Stack buttons on mobile */
+  }
 } 

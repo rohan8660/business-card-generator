@@ -2,46 +2,70 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Business Card Generator</title>
+    <!-- Link to CSS styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
         <h1>Business Card Generator</h1>
         
-        <form id="businessCardForm" method="POST" action="{{ url_for('generate_card') }}">
-            <div class="form-group">
-                <label for="name">Full Name:</label>
-                <input type="text" id="name" name="name" required>
+        <!-- Two-column layout wrapper -->
+        <div class="content-wrapper">
+            <!-- Left column: Input form -->
+            <div class="form-section">
+                <form id="businessCardForm" method="POST" action="{{ url_for('generate_card') }}">
+                    <!-- Name input field -->
+                    <div class="form-group">
+                        <label for="name">Full Name:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <!-- Email input field -->
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <!-- Phone input field -->
+                    <div class="form-group">
+                        <label for="phone">Phone Number:</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <!-- Debug mode toggle -->
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="debug" value="true"> Show alignment guides
+                        </label>
+                    </div>
+                    
+                    <button type="submit">Generate Business Card</button>
+                </form>
             </div>
-            
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="phone">Phone Number:</label>
-                <input type="tel" id="phone" name="phone" required>
-            </div>
-            
-            <div class="form-group">
-                <label>
-                    <input type="checkbox" name="debug" value="true"> Show alignment guides
-                </label>
-            </div>
-            
-            <button type="submit">Generate Business Card</button>
-        </form>
 
-        {% if card_image %}
-        <div class="result">
-            <h2>Your Business Card</h2>
-            <img src="data:image/png;base64,{{ card_image }}" alt="Generated Business Card">
-            <a href="data:image/png;base64,{{ card_image }}" download="business_card.png" class="download-btn">Download Card</a>
-            <button onclick="window.print()" class="print-btn">Print Card</button>
+            <!-- Right column: Card preview -->
+            <div class="preview-section">
+                {% if card_image %}
+                <!-- Show generated card if available -->
+                <div class="result">
+                    <h2>Your Business Card</h2>
+                    <img src="data:image/png;base64,{{ card_image }}" alt="Generated Business Card">
+                    <div class="button-group">
+                        <a href="data:image/png;base64,{{ card_image }}" download="business_card.png" class="download-btn">Download Card</a>
+                        <button onclick="window.print()" class="print-btn">Print Card</button>
+                    </div>
+                </div>
+                {% else %}
+                <!-- Show placeholder when no card is generated -->
+                <div class="result">
+                    <h2>Preview</h2>
+                    <p>Your business card preview will appear here</p>
+                </div>
+                {% endif %}
+            </div>
         </div>
-        {% endif %}
     </div>
 </body>
 </html> 
