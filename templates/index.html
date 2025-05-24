@@ -12,18 +12,30 @@
 <body>
     <div class="container">
         <h1>Business Card Generator</h1>
-
+        
         <!-- Two-column layout wrapper -->
         <div class="content-wrapper">
             <!-- Left column: Input form -->
             <div class="form-section">
-                <form id="businessCardForm" method="POST" action="{{ url_for('generate_card') }}">
+                {% if error %}
+                <div class="error-message">
+                    {{ error }}
+                </div>
+                {% endif %}
+                <form id="businessCardForm" method="POST" action="{{ url_for('generate_card') }}" enctype="multipart/form-data">
                     <!-- Name input field -->
                     <div class="form-group">
                         <label for="name">Full Name:</label>
                         <input type="text" id="name" name="name" required>
                     </div>
 
+                    <!-- Template upload field -->
+                    <div class="form-group">
+                        <label for="template">Upload Custom Template (PNG only):</label>
+                        <input type="file" id="template" name="template" accept="image/png" class="file-input">
+                        <small class="help-text">Recommended size: 1000x600 pixels. Leave empty to use default template.</small>
+                    </div>
+                    
                     <!-- Email input field -->
                     <div class="form-group">
                         <label for="email">Email:</label>

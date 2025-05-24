@@ -15,6 +15,7 @@ from config import (
     TEXT_X_OFFSET,
     URL_Y_POS,
 )
+import os
 
 app = Flask(__name__)
 
@@ -47,17 +48,33 @@ def generate_qr_code(vcard_data):
     return qr.make_image(fill_color="black", back_color="white")
 
 
-def create_business_card(name, email, phone, url="", debug=False):
+def get_default_template():
+    """Returns the default template image"""
+    return Image.open("static/template01.png")
+
+
+def create_business_card(name, email, phone, template_file=None, url="", debug=False):
     """
     Main function to generate the business card image
     Combines template, user information, and QR code into final design
 
     Parameters:
     - name, email, phone: User contact information
+    - template_file: Optional custom template file (file object)
     - debug: If True, shows alignment guides for template development
     """
-    # Load and prepare the base template
-    template = Image.open("static/template.png")
+    # Load and prepare the template
+    if template_file:
+        # Load custom template from uploaded file
+        template_image = Image.open(template_file)
+        # Ensure template is in correct format and size
+        template_image = template_image.convert("RGB")
+        template_image = template_image.resize((1000, 600), Image.Resampling.LANCZOS)
+        template = template_image
+    else:
+        # Use default template
+        template = get_default_template()
+
     draw = ImageDraw.Draw(template)
 
     # Configure text styling with professional font
@@ -184,7 +201,17 @@ def generate_card():
     url = request.form["url"]
     debug = request.form.get("debug", False)
 
-    card = create_business_card(name, email, phone, url, debug=debug)
+    # Handle template file upload
+    template_file = None
+    if "template" in request.files:
+        file = request.files["template"]
+        if file and file.filename:
+            # Verify file type
+            if not file.filename.lower().endswith(".png"):
+                return render_template("index.html", error="Please upload only PNG files")
+            template_file = file
+
+    card = create_business_card(name, email, phone, url, template_file=template_file, debug=debug)
 
     buffered = io.BytesIO()
     card.save(buffered, format="PNG")
