@@ -15,7 +15,6 @@ from config import (
     TEXT_X_OFFSET,
     URL_Y_POS,
 )
-import os
 
 app = Flask(__name__)
 
@@ -211,7 +210,7 @@ def generate_card():
                 return render_template("index.html", error="Please upload only PNG files")
             template_file = file
 
-    card = create_business_card(name, email, phone, url, template_file=template_file, debug=debug)
+    card = create_business_card(name, email, phone, template_file=template_file, url=url, debug=debug)
 
     buffered = io.BytesIO()
     card.save(buffered, format="PNG")
