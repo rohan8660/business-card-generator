@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,10 +8,11 @@
     <!-- Link to CSS styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
     <div class="container">
         <h1>Business Card Generator</h1>
-        
+
         <!-- Two-column layout wrapper -->
         <div class="content-wrapper">
             <!-- Left column: Input form -->
@@ -21,26 +23,31 @@
                         <label for="name">Full Name:</label>
                         <input type="text" id="name" name="name" required>
                     </div>
-                    
+
                     <!-- Email input field -->
                     <div class="form-group">
                         <label for="email">Email:</label>
                         <input type="email" id="email" name="email" required>
                     </div>
-                    
+
                     <!-- Phone input field -->
                     <div class="form-group">
                         <label for="phone">Phone Number:</label>
                         <input type="tel" id="phone" name="phone" required>
                     </div>
-                    
+
+                    <div class="form-group">
+                        <label for="phone">Url:</label>
+                        <input type="text" id="url" name="url" >
+                    </div>
+
                     <!-- Debug mode toggle -->
                     <div class="form-group">
                         <label>
                             <input type="checkbox" name="debug" value="true"> Show alignment guides
                         </label>
                     </div>
-                    
+
                     <button type="submit">Generate Business Card</button>
                 </form>
             </div>
@@ -53,7 +60,8 @@
                     <h2>Your Business Card</h2>
                     <img src="data:image/png;base64,{{ card_image }}" alt="Generated Business Card">
                     <div class="button-group">
-                        <a href="data:image/png;base64,{{ card_image }}" download="business_card.png" class="download-btn">Download Card</a>
+                        <a href="data:image/png;base64,{{ card_image }}" download="business_card.png"
+                            class="download-btn">Download Card</a>
                         <button onclick="window.print()" class="print-btn">Print Card</button>
                     </div>
                 </div>
@@ -68,4 +76,5 @@
         </div>
     </div>
 </body>
-</html> 
+
+</html>
